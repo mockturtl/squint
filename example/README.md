@@ -11,6 +11,7 @@ Your <img src="assets/eye.png" alt="eye" title="Postman environment" width="16px
 
 - `:owner`
 - `:repo`
+- `:name`
 - `OAUTH-TOKEN`
 
 [postman environment]: https://www.getpostman.com/docs/environments
