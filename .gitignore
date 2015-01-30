@@ -2,3 +2,5 @@
 .pub/
 build/
 packages
+
+.env
