@@ -1,0 +1,35 @@
+{
+	"id": "a8412803-3194-d09a-cbcf-66556e983177",
+	"name": "labels.issues.github",
+	"description": "",
+	"order": [
+		"91af9493-313e-4584-0444-805836fcab97"
+	],
+	"folders": [],
+	"timestamp": 1422571951116,
+	"synced": false,
+	"remoteLink": "",
+	"requests": [
+		{
+			"id": "91af9493-313e-4584-0444-805836fcab97",
+			"headers": "Accept: application/vnd.github.v3+json\nContent-Type: application/json\nAuthorization: token {{oauth}}\n",
+			"url": "https://api.github.com/repos/{{user}}/{{repo}}/labels",
+			"preRequestScript": "",
+			"pathVariables": {},
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": "",
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1422587882977,
+			"name": "POST labels",
+			"description": "",
+			"collectionId": "a8412803-3194-d09a-cbcf-66556e983177",
+			"responses": [],
+			"synced": false,
+			"rawModeData": "{\"name\":\"bar\",\"color\":\"00bb00\"}"
+		}
+	]
+}
