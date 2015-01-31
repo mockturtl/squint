@@ -7,7 +7,6 @@ void main() => run();
 
 void run() {
   skip_group('[]', () {
-    test('', () {
-    });
+    test('', () {});
   });
 }

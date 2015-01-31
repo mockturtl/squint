@@ -1,0 +1,17 @@
+{ "remove":
+  [ "help wanted"
+  , "invalid"
+  , "question"
+  , "enhancement"
+  ]
+, "add": 
+  [ { "name": "blocked", "color": "800000" }
+  , { "name": "ready", "color": "01ff70" }
+  , { "name": "android", "color": "a4c639" }
+  ]
+, "change":
+  [ { "name": "bug", "color": "d32f2f" }
+  , { "name": "wontfix", "color": "000000" }
+  , { "name": "duplicate", "color": "333333" }
+  ]
+}
