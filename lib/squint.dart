@@ -14,6 +14,8 @@ final _cli = new HttpClient();
 final url = 'https://api.github.com/repos/$owner/$repo/labels';
 const accept = 'application/vnd.github.v3+json';
 final authorization = 'token ${env['OAUTH_TOKEN']}';
+final user_agent =
+    'mockturtl/squint'; // https://developer.github.com/v3/#user-agent-required
 
 void delete(String label) {
   _cli.deleteUrl(Uri.parse('$url/$label')).then((HttpClientRequest req) {
@@ -65,10 +67,13 @@ void _logResHead(HttpClientResponse res) =>
 void _logRes(String res) {
   if (res.isNotEmpty) print(res);
 }
+void _logReq(HttpClientRequest req) => print(req.headers);
 void _close() => _cli.close();
 
 void _addHeaders(HttpClientRequest req) {
   req.headers.contentType = ContentType.JSON;
   req.headers.add(HttpHeaders.ACCEPT, accept);
   req.headers.add(HttpHeaders.AUTHORIZATION, authorization);
+  req.headers.set(HttpHeaders.USER_AGENT, user_agent);
+  _logReq(req);
 }
