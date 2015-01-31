@@ -1,7 +1,9 @@
 squint
 ======
 
-Squint is a CLI for GitHub's [issue labels][] API (v3).
+Squint is an interface for GitHub's [issue labels][] api (v3).
+
+[![Stories in Ready](https://badge.waffle.io/mockturtl/squint.png?label=ready&title=Ready)](http://waffle.io/mockturtl/squint)
 
 ###### usage
 
