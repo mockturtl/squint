@@ -6,8 +6,9 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
 
+const configFile = '.squintrc.json';
 final path = Platform.script.resolve('..');
-final config = path.resolve('.squintrc.json').toFilePath();
+final config = path.resolve(configFile).toFilePath();
 final f = new File(config);
 
 final log = new Logger('main');
@@ -87,7 +88,7 @@ add(List labels) async {
 
 void _checkConfig(File f) {
   if (!f.existsSync()) {
-    log.severe('Cannot find .squintrc.json; aborting.');
+    log.severe('Cannot find ${configFile}; aborting.');
     log.finer('path: ${path.toFilePath()}');
     exit(11);
   }
