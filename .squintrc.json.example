@@ -3,22 +3,16 @@
   , "invalid"
   , "question"
   , "enhancement"
-  , "garbanzo"
-  , "estrada"
   ]
 , "add": 
   [ { "name": "blocked", "color": "800000" }
   , { "name": "ready", "color": "01ff70" }
-  , { "name": "abracadabra", "color": "9483ea" }
-  , { "name": "abracadabra", "color": "9483ea" }
   , { "name": "android", "color": "a4c639" }
   , { "name": "jigglypuff", "color": "fad0de" }
   ]
 , "change":
   [ { "name": "bug", "color": "d32f2f" }
   , { "name": "wontfix", "color": "000000" }
-  , { "name": "furikake", "color": "012334" }
-  , { "name": "tobiko", "color": "987654" }
   , { "name": "duplicate", "color": "333333" }
   ]
 }

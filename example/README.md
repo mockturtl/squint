@@ -17,3 +17,20 @@ Your <img src="assets/eye.png" alt="eye" title="Postman environment" width="16px
 [postman environment]: https://www.getpostman.com/docs/environments
 [postman]: http://www.getpostman.com/
 [postman_collection.json]: postman_collection.json
+
+### [example.dart][]
+
+```sh
+$ dart example.dart
+```
+
+###### setup
+
+Your [environment][] must define certain variables to provide the GitHub API.
+
+```bash
+$ source .env
+```
+
+[example.dart]: example.dart
+[environment]: https://github.com/mockturtl/squint/blob/master/.env.example
