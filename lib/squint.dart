@@ -2,8 +2,11 @@ library squint;
 
 import 'dart:io';
 import 'dart:convert';
+import 'package:logging/logging.dart';
 
 part 'src/label.dart';
+
+final log = new Logger('squint');
 
 final env = Platform.environment;
 final owner = env['owner'];
@@ -17,63 +20,82 @@ final authorization = 'token ${env['OAUTH_TOKEN']}';
 final user_agent =
     'mockturtl/squint'; // https://developer.github.com/v3/#user-agent-required
 
-void delete(String label) {
-  _cli.deleteUrl(Uri.parse('$url/$label')).then((HttpClientRequest req) {
-    _addHeaders(req);
-    return req.close();
-  }).then(_logHandler);
-}
-
-void create(String label, String rgb) {
-  _cli.postUrl(Uri.parse(url)).then((HttpClientRequest req) {
+/// Create a new issue label.
+String create(String label, String rgb) async {
+  return _cli.postUrl(_uriFor(url)).then((HttpClientRequest req) {
     _addHeaders(req);
     req.add(UTF8.encode(new Label(label, rgb).toJson()));
     return req.close();
-  }).then(_logHandler);
+  }).then(_decode);
 }
 
-void set(String label, String rgb) {
-  _cli.patchUrl(Uri.parse('$url/$label')).then((HttpClientRequest req) {
+/// Change an issue label's color.
+String set(String label, String rgb) async {
+  return _cli.patchUrl(_uriFor('$url/$label')).then((HttpClientRequest req) {
     _addHeaders(req);
     req.add(UTF8.encode(new Label(label, rgb).toJson()));
     return req.close();
-  }).then(_logHandler);
+  }).then(_decode);
 }
 
-void get(String label) {
-  _cli.getUrl(Uri.parse('$url/$label')).then((HttpClientRequest req) {
+/// Delete an issue label.  Note this method returns the empty string.
+String delete(String label) async {
+  return _cli.deleteUrl(_uriFor('$url/$label')).then((HttpClientRequest req) {
     _addHeaders(req);
     return req.close();
-  }).then(_logHandler);
+  }).then(_decode);
 }
 
-void getAll() {
-  _cli.getUrl(Uri.parse(url)).then((HttpClientRequest req) {
+/// Fetch a single issue label.
+String get(String label) async {
+  return _cli.getUrl(_uriFor('$url/$label')).then((HttpClientRequest req) {
     _addHeaders(req);
     return req.close();
-  }).then(_logHandler);
+  }).then(_decode);
 }
 
-void _logHandler(HttpClientResponse bytes) {
-  _logResHead(bytes);
-  UTF8.decodeStream(bytes).then((String res) {
-    _logRes(res);
-  }).catchError(_logErr)..whenComplete(_close);
+/// Fetch the set of all issue labels for the repository.
+String getAll() async {
+  return _cli.getUrl(_uriFor(url)).then((HttpClientRequest req) {
+    _addHeaders(req);
+    return req.close();
+  }).then(_decode);
 }
 
-void _logErr(e) => print(e);
-void _logResHead(HttpClientResponse res) =>
-    print(res.statusCode); //print(bytes.headers);
-void _logRes(String res) {
-  if (res.isNotEmpty) print(res);
+Uri _uriFor(String path) => Uri.parse(path);
+
+String _decode(HttpClientResponse bytes) async {
+  _logHead(bytes);
+  return UTF8
+      .decodeStream(bytes)
+      .then(_logRes)
+      .catchError(_logErr)
+      .whenComplete(_close)
+      .then((String body) => body);
 }
-void _logReq(HttpClientRequest req) => print(req.headers);
-void _close() => _cli.close();
+
+void _logErr(e) => log.severe(e);
+
+void _logHead(HttpClientResponse res) {
+  log.info('-> ${res.statusCode} ${res.reasonPhrase}');
+  log.finest(
+      '-> persistent? ${res.persistentConnection}, content-length: ${res.contentLength}, headers: ${res.headers}');
+}
+
+String _logRes(String res) {
+  if (res.isNotEmpty) log.finer('-> $res');
+  return res;
+}
+
+void _close() {
+  _cli.close();
+  log.finest('_close: HttpClient connection closed');
+}
 
 void _addHeaders(HttpClientRequest req) {
   req.headers.contentType = ContentType.JSON;
   req.headers.add(HttpHeaders.ACCEPT, accept);
   req.headers.add(HttpHeaders.AUTHORIZATION, authorization);
   req.headers.set(HttpHeaders.USER_AGENT, user_agent);
-  _logReq(req);
+  log.finest('<- ${req.headers}');
 }
