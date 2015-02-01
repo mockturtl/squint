@@ -5,6 +5,12 @@ packages:
     description: ansicolor
     source: hosted
     version: "0.0.9"
+  log_init:
+    description:
+      path: "../log_init"
+      relative: true
+    source: path
+    version: "0.0.1"
   logging:
     description: logging
     source: hosted

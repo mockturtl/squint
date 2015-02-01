@@ -4,7 +4,8 @@ description: A minimal command-line application.
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dependencies:
-  ansicolor: any
+  log_init:
+    path: ../log_init
   logging: any
 dev_dependencies:
   unittest: any
