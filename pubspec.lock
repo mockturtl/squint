@@ -19,6 +19,10 @@ packages:
     description: matcher
     source: hosted
     version: "0.11.4"
+  mock:
+    description: mock
+    source: hosted
+    version: "0.11.0+2"
   path:
     description: path
     source: hosted

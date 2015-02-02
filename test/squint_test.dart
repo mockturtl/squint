@@ -1,12 +1,7 @@
-library squint_test;
+import 'src/request_headers_test.dart' as request_headers;
+import 'src/uri_builder_test.dart' as uri_builder;
 
-import 'package:squint/squint.dart';
-import 'package:unittest/unittest.dart';
-
-void main() => run();
-
-void run() {
-  skip_group('[]', () {
-    test('', () {});
-  });
+void main() {
+  request_headers.run();
+  uri_builder.run();
 }
