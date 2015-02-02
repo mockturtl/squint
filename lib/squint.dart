@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:logging/logging.dart';
 
 part 'src/label.dart';
-part 'src/request_headers.dart';
+part 'src/api_request.dart';
 part 'src/uri_builder.dart';
 
 final log = new Logger('squint');
@@ -17,8 +17,8 @@ final uri = new UriBuilder(_env['owner'], _env['repo']);
 /// Create a new issue label.
 String create(String label, String rgb) async {
   return _cli.postUrl(uri.collection).then((HttpClientRequest req) {
-    api.prepare(req.headers);
-    req.add(UTF8.encode(new Label(label, rgb).toJson()));
+    api.head(req.headers);
+    api.body(req, new Label(label, rgb));
     return req.close();
   }).then(_decode);
 }
@@ -26,8 +26,8 @@ String create(String label, String rgb) async {
 /// Change an issue label's color.
 String set(String label, String rgb) async {
   return _cli.patchUrl(uri.from(label)).then((HttpClientRequest req) {
-    api.prepare(req.headers);
-    req.add(UTF8.encode(new Label(label, rgb).toJson()));
+    api.head(req.headers);
+    api.body(req, new Label(label, rgb));
     return req.close();
   }).then(_decode);
 }
@@ -35,7 +35,7 @@ String set(String label, String rgb) async {
 /// Delete an issue label.  Note this method returns the empty string.
 String delete(String label) async {
   return _cli.deleteUrl(uri.from(label)).then((HttpClientRequest req) {
-    api.prepare(req.headers);
+    api.head(req.headers);
     return req.close();
   }).then(_decode);
 }
@@ -43,7 +43,7 @@ String delete(String label) async {
 /// Fetch a single issue label.
 String get(String label) async {
   return _cli.getUrl(uri.from(label)).then((HttpClientRequest req) {
-    api.prepare(req.headers);
+    api.head(req.headers);
     return req.close();
   }).then(_decode);
 }
@@ -51,7 +51,7 @@ String get(String label) async {
 /// Fetch the set of all issue labels for the repository.
 String getAll() async {
   return _cli.getUrl(uri.collection).then((HttpClientRequest req) {
-    api.prepare(req.headers);
+    api.head(req.headers);
     return req.close();
   }).then(_decode);
 }

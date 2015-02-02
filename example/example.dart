@@ -1,5 +1,5 @@
 import 'package:squint/squint.dart' as squint;
-import 'package:log_init/log_init.dart';
+import 'package:pico_log/pico_log.dart';
 import 'package:logging/logging.dart';
 import 'dart:convert';
 import 'dart:async';

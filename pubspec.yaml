@@ -1,11 +1,13 @@
 name: squint
 version: 0.1.0
-description: A minimal command-line application.
+description: Issue labels for hackers.
+author: mockturtl
+#homepage: https://mockturtl.github.io/squint
 environment:
   sdk: '>=1.0.0 <2.0.0'
 dependencies:
-  log_init:
-    path: ../log_init
+  pico_log:
+    path: ../pico_log
   logging: any
   #async_await:
     #git: https://github.com/dart-lang/async_await.git

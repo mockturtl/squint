@@ -1,7 +1,7 @@
-import 'src/request_headers_test.dart' as request_headers;
+import 'src/api_request_test.dart' as api_request;
 import 'src/uri_builder_test.dart' as uri_builder;
 
 void main() {
-  request_headers.run();
+  api_request.run();
   uri_builder.run();
 }

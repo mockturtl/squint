@@ -1,4 +1,4 @@
-part of request_headers.test;
+part of api_request.test;
 
 class HttpHeadersMock extends Mock implements HttpHeaders {
   final _map = {};
