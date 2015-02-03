@@ -4,13 +4,13 @@ description: Issue labels for hackers.
 author: mockturtl
 #homepage: https://mockturtl.github.io/squint
 environment:
-  sdk: '>=1.0.0 <2.0.0'
+  sdk: '>=1.8.0 <2.0.0'
 dependencies:
   pico_log:
     path: ../pico_log
   dotenv:
     path: ../dotenv
-  logging: any
+  logging: '^0.9.0'
   #async_await:
     #git: https://github.com/dart-lang/async_await.git
 dev_dependencies:
