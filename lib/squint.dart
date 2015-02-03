@@ -3,16 +3,20 @@ library squint;
 import 'dart:io';
 import 'dart:convert';
 import 'package:logging/logging.dart';
+import 'package:dotenv/dotenv.dart' as dotenv;
 
 part 'src/label.dart';
 part 'src/api_request.dart';
 part 'src/uri_builder.dart';
 
 final log = new Logger('squint');
-final _env = Platform.environment;
 final _cli = new HttpClient();
 final api = new ApiRequest('mockturtl/squint', _env['OAUTH_TOKEN']);
 final uri = new UriBuilder(_env['owner'], _env['repo']);
+
+get _env => dotenv.env;
+
+void init() => dotenv.load();
 
 /// Create a new issue label.
 String create(String label, String rgb) async {

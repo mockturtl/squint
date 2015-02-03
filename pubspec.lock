@@ -5,6 +5,12 @@ packages:
     description: ansicolor
     source: hosted
     version: "0.0.9"
+  dotenv:
+    description:
+      path: "../dotenv"
+      relative: true
+    source: path
+    version: "0.1.0"
   logging:
     description: logging
     source: hosted

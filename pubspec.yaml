@@ -8,6 +8,8 @@ environment:
 dependencies:
   pico_log:
     path: ../pico_log
+  dotenv:
+    path: ../dotenv
   logging: any
   #async_await:
     #git: https://github.com/dart-lang/async_await.git

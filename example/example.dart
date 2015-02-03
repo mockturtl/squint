@@ -13,6 +13,7 @@ void main() {
 final log = new Logger('example');
 
 void run() async {
+  squint.init();
   var res = await squint.getAll();
   var labels = JSON.decode(res) as List<Map>;
   log.info('run: got ${labels.length} labels');

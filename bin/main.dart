@@ -1,10 +1,11 @@
-import 'package:squint/squint.dart' as squint;
-import 'package:pico_log/pico_log.dart';
+import 'package:dotenv/dotenv.dart' as dotenv;
 import 'package:logging/logging.dart';
+import 'package:pico_log/pico_log.dart';
+import 'package:squint/squint.dart' as squint;
 
-import 'dart:io';
-import 'dart:convert';
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 const configFile = '.squintrc.json';
 final path = Platform.script.resolve('..');
@@ -13,10 +14,12 @@ final f = new File(config);
 
 final log = new Logger('main');
 
+get _env => dotenv.env;
+
 void main() async {
   LogInit.setup(level: Level.FINE, timestamps: false);
-  log.info(
-      'Squinting at repo ${Platform.environment['owner']}/${Platform.environment['repo']}...');
+  squint.init();
+  log.info('Squinting at repo ${_env['owner']}/${_env['repo']}...');
 
   var labels = await fetch() as List<Map>;
 
