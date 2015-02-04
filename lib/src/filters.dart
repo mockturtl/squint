@@ -1,6 +1,6 @@
 part of squint;
 
-/// Verify input before sending.
+/// Validate input before sending.
 /// Don't try to add labels that already exist, or update/remove labels that do not exist.
 class Filters {
   static const _key = 'name';

@@ -1,6 +1,6 @@
 part of squint;
 
-/// Wrap the core [HttpClient] types for GitHub's api.
+/// Wraps the core [HttpClient] types for GitHub's api.
 class GithubPresenter extends HttpPresenter {
   static const _accept = 'application/vnd.github.v3+json';
 

@@ -11,17 +11,17 @@ final path = Platform.script.resolve('..');
 final config = path.resolve(configFile).toFilePath();
 final f = new File(config);
 
-final log = new Logger('main');
+final log = new Logger('squint');
 const _f = const squint.Filters();
-final _cli = new squint.Client();
 
 get _env => dotenv.env;
 
-List<Map<String, String>> _currentLabels;
+squint.Client _cli;
+List<Map> _currentLabels;
 
 void main() async {
   LogInit.setup(level: Level.FINE, timestamps: false);
-  squint.init();
+  _cli = squint.init();
 
   _checkConfig(f);
   var config = JSON.decode(f.readAsStringSync());
@@ -34,7 +34,7 @@ void main() async {
   await _change(config['change']);
   await _remove(config['remove']);
 
-  log.info('...done!');
+  log.info('...Done: ${_cli.browserUrl}');
 }
 
 void _add(List<Map> labels) async {

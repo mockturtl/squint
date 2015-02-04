@@ -1,22 +1,24 @@
 part of squint;
 
-/// CRUD interface for the remote issue labels service.
-/// For batch access, see [Client].
+/// CRUD interface to the remote issue labels service.
+/// Prefer [Client] to calling the [Gateway] directly.
 class Gateway {
   final _cli = new HttpClient();
   final _p = new GithubPresenter('mockturtl/squint', _env['OAUTH_TOKEN']);
-  final _uri = new UriBuilder(_env['owner'], _env['repo']);
+  final UriBuilder _uri;
+
+  Gateway(this._uri);
 
   /// Create a new issue label.
   String create(String label, String rgb) async => _cli
       .postUrl(_uri.ofCollection)
-      .then((HttpClientRequest req) => _p.sendWith(req, new Label(label, rgb)))
+      .then((req) => _p.sendWith(req, new Label(label, rgb)))
       .then(_p.decode);
 
   /// Change an issue label's color.
   String set(String label, String rgb) async => _cli
       .patchUrl(_uri.ofItem(label))
-      .then((HttpClientRequest req) => _p.sendWith(req, new Label(label, rgb)))
+      .then((req) => _p.sendWith(req, new Label(label, rgb)))
       .then(_p.decode);
 
   /// Delete an issue label.  Note this method returns the empty string.

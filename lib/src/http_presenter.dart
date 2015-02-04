@@ -1,7 +1,8 @@
 part of squint;
 
-/// Wrap the core [HttpClient] types for convenience.
+/// Wraps the core [HttpClient] types.
 abstract class HttpPresenter {
+  // FIXME: https://code.google.com/p/dart/issues/detail?id=4596
   static _nil() => {};
 
   static final _log = new Logger('HttpPresenter');
@@ -10,11 +11,13 @@ abstract class HttpPresenter {
 
   const HttpPresenter([this._whenComplete = _nil]);
 
+  /// Supply custom headers with an [HttpClientRequest].
   void head(HttpHeaders headers) {
     headers.contentType = ContentType.JSON;
     headers.persistentConnection = false;
   }
 
+  /// Transform the response byte stream to a [String].
   String decode(HttpClientResponse bytes) async {
     _logHead(bytes);
     return UTF8

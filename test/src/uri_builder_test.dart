@@ -10,6 +10,7 @@ void run() {
     var subj = new UriBuilderTest();
     test('it knows the collection resource url', subj.ofCollection);
     test('it knows an item resource url', subj.ofItem);
+    test('it provides a browser url', subj.forBrowser);
   });
 }
 
@@ -24,5 +25,11 @@ class UriBuilderTest {
     var uri = new UriBuilder('muldoon', 'dinosaurs');
     expect(uri.ofItem('clever').toString(),
         equals('https://api.github.com/repos/muldoon/dinosaurs/labels/clever'));
+  }
+
+  void forBrowser() {
+    var uri = new UriBuilder('vader', 'internet_of_hands');
+    expect(uri.forBrowser,
+        equals('https://github.com/vader/internet_of_hands/labels'));
   }
 }

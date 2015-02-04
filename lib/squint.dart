@@ -15,9 +15,17 @@ part 'src/gateway.dart';
 part 'src/label.dart';
 part 'src/uri_builder.dart';
 
-final log = new Logger('squint');
+const _requiredEnvVars = const ['owner', 'repo'];
 
-/// Load configuration.  Application code must call this once, early in [main].
-void init() => dotenv.load();
+/// Load configuration.  Application code must call this once, early in `main()`.
+Client init() {
+  dotenv.load();
+  return new Client();
+}
 
-get _env => dotenv.env;
+/// True if all required environment variables are present; false otherwise.
+/// Note [init] must be called first.
+bool get hasEnv => dotenv.every(_requiredEnvVars);
+
+/// The process environment.  See [dotenv].
+Map<String, String> get _env => dotenv.env;
