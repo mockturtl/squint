@@ -1,5 +1,6 @@
 part of squint;
 
+/// Value object representing an issue label.
 class Label {
   final String name;
   final String rgb;

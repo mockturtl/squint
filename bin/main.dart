@@ -1,11 +1,10 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dotenv/dotenv.dart' as dotenv;
 import 'package:logging/logging.dart';
 import 'package:pico_log/pico_log.dart';
 import 'package:squint/squint.dart' as squint;
-
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
 
 const configFile = '.squintrc.json';
 final path = Platform.script.resolve('..');
@@ -13,86 +12,50 @@ final config = path.resolve(configFile).toFilePath();
 final f = new File(config);
 
 final log = new Logger('main');
+const _f = const squint.Filters();
+final _cli = new squint.Client();
 
 get _env => dotenv.env;
+
+List<Map<String, String>> _currentLabels;
 
 void main() async {
   LogInit.setup(level: Level.FINE, timestamps: false);
   squint.init();
-  log.info('Squinting at repo ${_env['owner']}/${_env['repo']}...');
-
-  var labels = await fetch() as List<Map>;
 
   _checkConfig(f);
-
   var config = JSON.decode(f.readAsStringSync());
 
-  var toAdd = config['add'] as List<Map>;
-  log.fine('main: adding ${toAdd.length} labels');
-  toAdd.removeWhere((el) {
-    var name = el['name'];
-    var exists = labels.any((l) => l['name'] == name);
-    if (exists) log.warning('main: label "$name" exists; skipping');
-    return exists;
-  });
-  await add(toAdd);
+  log.info('Squinting at repo ${_env['owner']}/${_env['repo']}...');
 
-  var toChange = config['change'] as List<Map>;
-  log.fine('main: changing ${toChange.length} labels');
-  toChange.removeWhere((el) {
-    var name = el['name'];
-    var exists = labels.any((l) => l['name'] == name);
-    if (!exists) log.warning('main: label "$name" does not exist; skipping');
-    return !exists;
-  });
-  await change(toChange);
+  _currentLabels = await _cli.fetch();
 
-  var toRemove = config['remove'] as List<String>;
-  log.fine('main: removing ${toRemove.length} labels');
-  toRemove.removeWhere((name) {
-    var exists = labels.any((l) => l['name'] == name);
-    if (!exists) log.warning('main: label "$name" does not exist; skipping');
-    return !exists;
-  });
-  await remove(toRemove);
+  await _add(config['add']);
+  await _change(config['change']);
+  await _remove(config['remove']);
 
   log.info('...done!');
 }
 
-List<Map<String, String>> fetch() async {
-  var res = await squint.getAll();
-  var out = JSON.decode(res) as List<Map>;
-  log.fine('fetch: got ${out.length} labels');
-  return out;
+void _add(List<Map> labels) async {
+  _f.blacklist(labels, _currentLabels);
+  await _cli.add(labels);
 }
 
-remove(List labels) async {
-  return Future.forEach(labels, (name) async {
-    log.fine('remove: $name');
-    await squint.delete(name);
-  });
+void _change(List<Map> labels) async {
+  _f.whitelist(labels, _currentLabels);
+  await _cli.change(labels);
 }
 
-change(List labels) async {
-  return Future.forEach(labels, (obj) async {
-    var l = new squint.Label.from(obj);
-    log.fine('change: $l');
-    await squint.set(l.name, l.rgb);
-  });
-}
-
-add(List labels) async {
-  return Future.forEach(labels, (obj) async {
-    var l = new squint.Label.from(obj);
-    log.fine('add: $l');
-    await squint.create(l.name, l.rgb);
-  });
+void _remove(List<String> names) async {
+  _f.whitelist2(names, _currentLabels);
+  await _cli.remove(names);
 }
 
 void _checkConfig(File f) {
   if (!f.existsSync()) {
     log.severe('Cannot find ${configFile}; aborting.');
     log.finer('path: ${path.toFilePath()}');
-    exit(11);
+    exit(2);
   }
 }

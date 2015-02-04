@@ -8,21 +8,21 @@ void main() => run();
 void run() {
   group('[UriBuilder]', () {
     var subj = new UriBuilderTest();
-    test('it knows the base collection resource url', subj.collection);
-    test('it knows an item resource url', subj.from);
+    test('it knows the collection resource url', subj.ofCollection);
+    test('it knows an item resource url', subj.ofItem);
   });
 }
 
 class UriBuilderTest {
-  void collection() {
-    var b = new UriBuilder('bozo', 'necronomicon');
-    expect(b.collection.toString(),
-        equals('https://api.github.com/repos/bozo/necronomicon/labels'));
+  void ofCollection() {
+    var uri = new UriBuilder('ash', 'necronomicon');
+    expect(uri.ofCollection.toString(),
+        equals('https://api.github.com/repos/ash/necronomicon/labels'));
   }
 
-  void from() {
-    var b = new UriBuilder('pratt', 'dinosaurs');
-    expect(b.from('delicious').toString(), equals(
-        'https://api.github.com/repos/pratt/dinosaurs/labels/delicious'));
+  void ofItem() {
+    var uri = new UriBuilder('muldoon', 'dinosaurs');
+    expect(uri.ofItem('clever').toString(),
+        equals('https://api.github.com/repos/muldoon/dinosaurs/labels/clever'));
   }
 }

@@ -12,16 +12,16 @@ part 'mock/http_client_request_mock.dart';
 void main() => run();
 
 void run() {
-  group('[ApiRequest]', () {
-    var subj = new ApiRequestTest();
+  group('[GithubPresenter]', () {
+    var subj = new GithubPresenterTest();
     test('it adds the right request headers', subj.head);
     test('it adds the request body', subj.body);
   });
 }
 
-class ApiRequestTest {
+class GithubPresenterTest {
   void head() {
-    var h = new ApiRequest('anything', 'SECRET');
+    var h = new GithubPresenter('anything', 'SECRET');
     var mock = new HttpHeadersMock();
     h.head(mock);
     expect(mock.contentType, equals(ContentType.JSON));
@@ -32,7 +32,7 @@ class ApiRequestTest {
   }
 
   void body() {
-    var h = new ApiRequest('', '');
+    var h = new GithubPresenter('', '');
     var mock = new HttpClientRequestMock();
     h.body(mock, new Label('foo', 'aa0000'));
     expect(UTF8.decode(mock.bytes), equals('{"name":"foo","color":"aa0000"}'));
