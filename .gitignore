@@ -2,6 +2,8 @@
 .pub/
 build/
 packages
+docs
+dartdoc-viewer
 
 .env
 .squintrc.json
