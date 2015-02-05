@@ -25,7 +25,7 @@ Client init() {
 
 /// True if all required environment variables are present; false otherwise.
 /// Note [init] must be called first.
-bool get hasEnv => dotenv.every(_requiredEnvVars);
+bool get hasEnv => dotenv.isEveryDefined(_requiredEnvVars);
 
 /// The process environment.  See [dotenv].
 Map<String, String> get _env => dotenv.env;

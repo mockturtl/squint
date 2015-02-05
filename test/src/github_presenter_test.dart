@@ -25,7 +25,7 @@ class GithubPresenterTest {
     var mock = new HttpHeadersMock();
     h.head(mock);
     expect(mock.contentType, equals(ContentType.JSON));
-    expect(mock.persistentConnection, equals(false));
+    expect(mock.persistentConnection, isFalse);
     expect(mock.accept, equals('application/vnd.github.v3+json'));
     expect(mock.authorization, equals('token SECRET'));
     expect(mock.userAgent, equals('anything'));
