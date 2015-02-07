@@ -2,7 +2,7 @@ name: squint
 version: 0.1.0
 description: Issue labels for hackers.
 author: mockturtl
-#homepage: https://mockturtl.github.io/squint
+homepage: https://github.com/mockturtl/squint
 environment:
   sdk: '>=1.8.0 <2.0.0'
 dependencies:
