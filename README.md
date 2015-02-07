@@ -1,15 +1,24 @@
 squint
 ======
 
+[![Pub Version][pub_badge]][pub]
+[![Build Status][drone_badge]][drone]
+[![Tickets Ready][waffle_badge]][waffle]
+
 Squint is a client for GitHub's [issue labels][] api (v3).
 
 Groom the default tags to suit your team.
 
 Try it with [Stagehand][] in a new repo.
 
-[![Stories in Ready](https://badge.waffle.io/mockturtl/squint.png?label=ready&title=Ready)](http://waffle.io/mockturtl/squint)
-
 [stagehand]: http://stagehand.pub/
+
+[drone_badge]: https://drone.io/github.com/mockturtl/squint/status.png
+[drone]: https://drone.io/github.com/mockturtl/squint/latest
+[pub_badge]: https://img.shields.io/pub/v/squint.svg
+[pub]: https://pub.dartlang.org/packages/squint
+[waffle_badge]: https://badge.waffle.io/mockturtl/squint.svg?label=ready&title=Ready
+[waffle]: https://waffle.io/mockturtl/squint
 
 ###### setup
 
@@ -47,7 +56,8 @@ Run squint:
 $ dart bin/main.dart
 ```
 
-Squint will be available as a `pub global|run` command once pub [supports][pub-async] `async`.
+- Squint is idempotent.  Requests are deduplicated against the repo's current labels.
+- Squint will be available as a `pub global|run` command once pub [supports][pub-async] `async`.
 
 [issue labels]: https://developer.github.com/v3/issues/labels/
 [pub-async]: http://stackoverflow.com/a/27753955
