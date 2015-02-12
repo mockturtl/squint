@@ -4,6 +4,8 @@ part of squint;
 class GithubPresenter extends HttpPresenter {
   static const _accept = 'application/vnd.github.v3+json';
 
+  static final _log = new Logger('GithubPresenter');
+
   final String _userAgent; // https://developer.github.com/v3/#user-agent-required
   final String _token;
 
@@ -15,6 +17,7 @@ class GithubPresenter extends HttpPresenter {
     headers.add(HttpHeaders.ACCEPT, _accept);
     headers.add(HttpHeaders.AUTHORIZATION, _authorization);
     headers.set(HttpHeaders.USER_AGENT, _userAgent);
+    _log.finest('<- headers:\n${headers}');
   }
 
   /// Supply [label] as the body of [req].
