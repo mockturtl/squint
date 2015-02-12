@@ -7,9 +7,9 @@ environment:
   sdk: '>=1.8.0 <2.0.0'
 dependencies:
   pico_log:
-    path: ../pico_log
+    git: git@bitbucket.org:mockturtl/pico_log.git
   dotenv:
-    path: ../dotenv
+    git: git@bitbucket.org:mockturtl/dotenv.git
   logging: '^0.9.0'
   #async_await:
     #git: https://github.com/dart-lang/async_await.git
