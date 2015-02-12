@@ -44,6 +44,7 @@ void _add(List<Map> labels) async {
 
 void _change(List<Map> labels) async {
   _f.whitelist(labels, _currentLabels);
+  _f.blacklist2(labels, _currentLabels);
   await _cli.change(labels);
 }
 

@@ -4,6 +4,7 @@ part of squint;
 /// Don't try to add labels that already exist, or update/remove labels that do not exist.
 class Filters {
   static const _key = 'name';
+  static const _key2 = 'color';
 
   static final _log = new Logger('Filters');
 
@@ -39,6 +40,19 @@ class Filters {
       var val = map[_key];
       var exists = blacklist.any((l) => l[_key] == val);
       if (exists) _log.warning('blacklist: label "$val" exists; skipping');
+      return exists;
+    });
+  }
+
+  /// Mutates [input], removing elements that match any item in the [blacklist].
+  void blacklist2(List<Map<String, String>> input,
+      Iterable<Map<String, String>> blacklist) {
+    input.removeWhere((map) {
+      var val = map[_key];
+      var val2 = map[_key2];
+      var exists = blacklist.any((l) => l[_key] == val && l[_key2] == val2);
+      if (exists) _log
+          .warning('blacklist2: label "$val, $val2" exists; skipping');
       return exists;
     });
   }
