@@ -13,6 +13,8 @@ Try it with [Stagehand][] in a new repo.
 
 [stagehand]: http://stagehand.pub/
 
+[bitdeli_badge]: https://d2weczhvl823v0.cloudfront.net/mockturtl/squint/trend.png
+[bitdeli]: https://bitdeli.com/free
 [drone_badge]: https://drone.io/github.com/mockturtl/squint/status.png
 [drone]: https://drone.io/github.com/mockturtl/squint/latest
 [pub_badge]: https://img.shields.io/pub/v/squint.svg
@@ -63,3 +65,5 @@ $ dart bin/main.dart
 [pub-async]: http://stackoverflow.com/a/27753955
 [squintrc]: https://github.com/mockturtl/squint/blob/master/.squintrc.json.example 
 [.env]: https://github.com/mockturtl/squint/blob/master/.env.example
+
+[![Bitdeli analytics][bitdeli_badge]][bitdeli]
