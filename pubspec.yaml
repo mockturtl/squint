@@ -11,14 +11,11 @@ dependencies:
   dotenv:
     git: git@bitbucket.org:mockturtl/dotenv.git
   logging: '^0.9.0'
-  #async_await:
-    #git: https://github.com/dart-lang/async_await.git
 dev_dependencies:
   unittest: any
   mock: any
 executables:
   squint: main
 transformers:
-#- async_await
 - $dart2js:
     $exclude: 'test/**'
