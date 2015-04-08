@@ -2,7 +2,7 @@ squint
 ======
 
 [![Pub Version][pub_badge]][pub]
-[![Build Status][drone_badge]][drone]
+[![Build Status][ci-badge]][ci]
 [![Tickets Ready][waffle_badge]][waffle]
 
 Squint is a client for GitHub's [issue labels][] api (v3).
@@ -13,10 +13,8 @@ Try it with [Stagehand][] in a new repo.
 
 [stagehand]: http://stagehand.pub/
 
-[bitdeli_badge]: https://d2weczhvl823v0.cloudfront.net/mockturtl/squint/trend.png
-[bitdeli]: https://bitdeli.com/free
-[drone_badge]: https://drone.io/github.com/mockturtl/squint/status.png
-[drone]: https://drone.io/github.com/mockturtl/squint/latest
+[ci-badge]: https://travis-ci.org/mockturtl/squint.svg?branch=master
+[ci]: https://travis-ci.org/mockturtl/squint
 [pub_badge]: https://img.shields.io/pub/v/squint.svg
 [pub]: https://pub.dartlang.org/packages/squint
 [waffle_badge]: https://badge.waffle.io/mockturtl/squint.svg?label=ready&title=Ready
@@ -65,5 +63,3 @@ $ dart bin/main.dart
 [pub-async]: http://stackoverflow.com/a/27753955
 [squintrc]: https://github.com/mockturtl/squint/blob/master/.squintrc.json.example 
 [.env]: https://github.com/mockturtl/squint/blob/master/.env.example
-
-[![Bitdeli analytics][bitdeli_badge]][bitdeli]
