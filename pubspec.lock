@@ -6,11 +6,8 @@ packages:
     source: hosted
     version: "0.0.9"
   dotenv:
-    description:
-      ref: null
-      resolved-ref: "4f9e8937efc260a9d28642dc2e9b465e0ae8f5c8"
-      url: "git@bitbucket.org:mockturtl/dotenv.git"
-    source: git
+    description: dotenv
+    source: hosted
     version: "0.1.0"
   logging:
     description: logging
@@ -29,11 +26,8 @@ packages:
     source: hosted
     version: "1.3.4"
   pico_log:
-    description:
-      ref: null
-      resolved-ref: "5479f884774609c8cd8d93b24fd894b7e7558331"
-      url: "git@bitbucket.org:mockturtl/pico_log.git"
-    source: git
+    description: pico_log
+    source: hosted
     version: "0.1.0"
   stack_trace:
     description: stack_trace
