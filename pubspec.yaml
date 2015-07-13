@@ -14,6 +14,3 @@ dev_dependencies:
   mock: any
 executables:
   squint: main
-transformers:
-- $dart2js:
-    $exclude: 'test/**'
