@@ -1,17 +1,13 @@
-library api_request.test;
-
-import 'package:squint/squint.dart';
-import 'package:mock/mock.dart';
-import 'package:unittest/unittest.dart';
 import 'dart:io';
 import 'dart:convert';
 
-part 'mock/http_headers_mock.dart';
-part 'mock/http_client_request_mock.dart';
+import 'package:mockito/mockito.dart';
+import 'package:squint/squint.dart';
+import 'package:test/test.dart';
 
-void main() => run();
+import 'src/mocks.dart';
 
-void run() {
+main() {
   group('[GithubPresenter]', () {
     var subj = new GithubPresenterTest();
     test('it adds the right request headers', subj.head);
@@ -33,8 +29,11 @@ class GithubPresenterTest {
 
   void body() {
     var h = new GithubPresenter('', '');
-    var mock = new HttpClientRequestMock();
-    h.body(mock, new Label('foo', 'aa0000'));
-    expect(UTF8.decode(mock.bytes), equals('{"name":"foo","color":"aa0000"}'));
+    var stub = new HttpClientRequestMock();
+    var l = new Label('foo', 'aa0000');
+    var bytes = UTF8.encode(l.toJson());
+    h.body(stub, l);
+    // FIXME https://github.com/fibulwinter/dart-mockito/issues/15#issuecomment-117515552
+    verify(stub.add(argThat(equals(bytes)))).called(1);
   }
 }

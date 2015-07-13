@@ -10,7 +10,7 @@ dependencies:
   dotenv: any
   logging: any
 dev_dependencies:
-  unittest: any
-  mock: any
+  test: any
+  mockito: any
 executables:
   squint: main

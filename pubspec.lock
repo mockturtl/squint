@@ -69,10 +69,10 @@ packages:
     description: mime
     source: hosted
     version: "0.9.3"
-  mock:
-    description: mock
+  mockito:
+    description: mockito
     source: hosted
-    version: "0.12.0"
+    version: "0.10.1"
   package_config:
     description: package_config
     source: hosted
@@ -133,10 +133,6 @@ packages:
     description: test
     source: hosted
     version: "0.12.3+6"
-  unittest:
-    description: unittest
-    source: hosted
-    version: "0.12.3"
   utf:
     description: utf
     source: hosted
