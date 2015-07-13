@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'dart:io';
+import 'dart:async';
 
 import 'package:squint/squint.dart' as squint;
 import 'package:pico_log/pico_log.dart';
@@ -17,7 +18,7 @@ void main() {
   run();
 }
 
-void run() async {
+Future run() async {
   var labels = await _client.fetch();
   log.info('run: got ${labels.length} labels');
   labels.forEach((ob) => log.fine('\t-> $ob'));

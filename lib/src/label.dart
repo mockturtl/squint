@@ -4,6 +4,7 @@ part of squint;
 class Label {
   /// Label name.
   final String name;
+
   /// Label color as rrggbb, with no leading `#`.
   final String hex;
 

@@ -22,7 +22,7 @@ class Client {
   }
 
   /// Retrieve all current issue labels for the repository.
-  List<Map<String, String>> fetch() async {
+  Future<List<Map<String, String>>> fetch() async {
     var res = await _g.getAll();
     var out = JSON.decode(res) as List<Map>;
     _log.fine('fetch: ${out.length}');

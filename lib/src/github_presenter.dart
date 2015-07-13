@@ -26,14 +26,15 @@ class GithubPresenter extends HttpPresenter {
   }
 
   /// Send [req] after assigning the correct headers and body.
-  HttpClientResponse sendWith(HttpClientRequest req, Label label) async {
+  Future<HttpClientResponse> sendWith(
+      HttpClientRequest req, Label label) async {
     head(req.headers);
     body(req, label);
     return req.close();
   }
 
   /// Send [req] after assigning the correct headers.
-  HttpClientResponse send(HttpClientRequest req) async {
+  Future<HttpClientResponse> send(HttpClientRequest req) async {
     head(req.headers);
     return req.close();
   }

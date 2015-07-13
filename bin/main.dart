@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:async';
 
 import 'package:dotenv/dotenv.dart' as dotenv;
 import 'package:logging/logging.dart';
@@ -19,7 +20,7 @@ get _env => dotenv.env;
 squint.Client _cli;
 List<Map> _currentLabels;
 
-void main() async {
+Future main() async {
   LogInit.setup(level: Level.FINE, timestamps: false);
   _cli = squint.init();
 
@@ -37,18 +38,18 @@ void main() async {
   log.info('...Done: ${_cli.browserUrl}');
 }
 
-void _add(List<Map> labels) async {
+Future _add(List<Map> labels) async {
   _f.blacklist(labels, _currentLabels);
   await _cli.add(labels);
 }
 
-void _change(List<Map> labels) async {
+Future _change(List<Map> labels) async {
   _f.whitelist(labels, _currentLabels);
   _f.blacklist2(labels, _currentLabels);
   await _cli.change(labels);
 }
 
-void _remove(List<String> names) async {
+Future _remove(List<String> names) async {
   _f.whitelist2(names, _currentLabels);
   await _cli.remove(names);
 }

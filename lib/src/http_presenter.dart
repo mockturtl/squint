@@ -18,7 +18,7 @@ abstract class HttpPresenter {
   }
 
   /// Transform the response byte stream to a [String].
-  String decode(HttpClientResponse bytes) async {
+  Future<String> decode(HttpClientResponse bytes) async {
     _logHead(bytes);
     return UTF8
         .decodeStream(bytes)
