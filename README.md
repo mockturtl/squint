@@ -1,17 +1,11 @@
 squint
 ======
 
+Squint is a client for GitHub's [issue labels][gh-issue-labels] api (v3).
+
 [![Pub Version][pub_badge]][pub]
 [![Build Status][ci-badge]][ci]
 [![Tickets Ready][waffle_badge]][waffle]
-
-Squint is a client for GitHub's [issue labels][] api (v3).
-
-Groom the default tags to suit your team.
-
-Try it with [Stagehand][] in a new repo.
-
-[stagehand]: http://stagehand.pub/
 
 [ci-badge]: https://travis-ci.org/mockturtl/squint.svg?branch=master
 [ci]: https://travis-ci.org/mockturtl/squint
@@ -20,12 +14,20 @@ Try it with [Stagehand][] in a new repo.
 [waffle_badge]: https://badge.waffle.io/mockturtl/squint.svg?label=ready&title=Ready
 [waffle]: https://waffle.io/mockturtl/squint
 
+### about
+
+Groom the default tags to suit your team. Try it with [Stagehand][] in a new repo.
+
+Squint is idempotent. Requests are deduplicated against the repo's current labels.
+
+[stagehand]: http://stagehand.pub/
+[gh-issue-labels]: https://developer.github.com/v3/issues/labels/
+
 ###### setup
 
 Create [`.env`][.env] from the template file and fill in its values.
 
-usage
------
+[.env]: https://github.com/mockturtl/squint/blob/master/.env.example
 
 Create [`.squint.yml`][squintfile] (or `.json`) with the issue labels you wish 
 to add, remove, or change.
@@ -56,23 +58,34 @@ change:
     color: '#433333'
 ```
 
-run 
----
+[squintfile]: https://github.com/mockturtl/squint/blob/master/.squint.yml.example
 
+### cli
+ 
 Grab the latest:
 
 ```sh
 $ pub global activate squint
 ```
 
-Then:
+Pub will install the `squint` executable. ([more][pub-global])
+
+Run:
 
 ```sh
-$ squint -f .squint.yml
+$ pub global run squint:squint -h
+$ squint -h # needs ~/.pub-cache/bin in your PATH
 ```
 
-Squint is idempotent.  Requests are deduplicated against the repo's current labels.
+[pub-global]: https://www.dartlang.org/tools/pub/cmd/pub-global.html#running-a-script
 
-[issue labels]: https://developer.github.com/v3/issues/labels/
-[squintfile]: https://github.com/mockturtl/squint/blob/master/.squint.yml.example 
-[.env]: https://github.com/mockturtl/squint/blob/master/.env.example
+
+#### discussion
+
+Use the [issue tracker][tracker] for bug reports and feature requests.
+
+Pull requests gleefully considered.
+
+[tracker]: https://github.com/mockturtl/squint/issues
+
+###### license: [MIT](LICENSE)
