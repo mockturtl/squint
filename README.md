@@ -27,39 +27,52 @@ Create [`.env`][.env] from the template file and fill in its values.
 usage
 -----
 
-Create [`.squintrc.json`][squintrc] with the issue labels you wish to add, remove, or change.
+Create [`.squint.yml`][squintfile] (or `.json`) with the issue labels you wish 
+to add, remove, or change.
 
-```json
-{ "remove":
-  [ "help wanted"
-  , "invalid"
-  , "question"
-  , "enhancement"
-  ]
-, "add": 
-  [ { "name": "blocked", "color": "800000" }
-  , { "name": "ready", "color": "01ff70" }
-  , { "name": "android", "color": "a4c639" }
-  , { "name": "jigglypuff", "color": "fad0de" }
-  ]
-, "change":
-  [ { "name": "bug", "color": "d32f2f" }
-  , { "name": "wontfix", "color": "000000" }
-  , { "name": "duplicate", "color": "333333" }
-  ]
-}
+```yaml
+remove:
+  - help wanted
+  - invalid
+  - question
+  - enhancement
+
+add: 
+  - name: blocked
+    color: '#800000'
+  - name: ready
+    color: '#01ff70'
+  - name: android
+    color: '#a4c639'
+  - name: jigglypuff
+    color: '#fad0de'
+
+change:
+  - name: bug
+    color: '#d32f2f'
+  - name: wontfix
+    color: '#000000'
+  - name: duplicate
+    color: '#433333'
 ```
 
-Run squint: 
+run 
+---
+
+Grab the latest:
 
 ```sh
-$ dart bin/main.dart
+$ pub global activate squint
 ```
 
-- Squint is idempotent.  Requests are deduplicated against the repo's current labels.
-- Squint will be available as a `pub global|run` command once pub [supports][pub-async] `async`.
+Then:
+
+```sh
+$ squint -f .squint.yml
+```
+
+Squint is idempotent.  Requests are deduplicated against the repo's current labels.
 
 [issue labels]: https://developer.github.com/v3/issues/labels/
-[pub-async]: http://stackoverflow.com/a/27753955
-[squintrc]: https://github.com/mockturtl/squint/blob/master/.squintrc.json.example 
+[squintfile]: https://github.com/mockturtl/squint/blob/master/.squint.yml.example 
 [.env]: https://github.com/mockturtl/squint/blob/master/.env.example

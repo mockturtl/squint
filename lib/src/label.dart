@@ -2,13 +2,16 @@ part of squint;
 
 /// Value object representing an issue label.
 class Label {
+  static String _sanitize(String hex) =>
+      hex.replaceFirst('#', '').replaceFirst('0x', '');
+
   /// Label name.
   final String name;
 
-  /// Label color as rrggbb, with no leading `#`.
+  /// Label color as RRGGBB, with no leading `#` or '0x'.
   final String hex;
 
-  const Label(this.name, this.hex);
+  Label(this.name, String hex) : this.hex = _sanitize(hex);
 
   /// The supplied map must have keys `name`, `color`.
   Label.from(Map<String, String> map) : this(map['name'], map['color']);
