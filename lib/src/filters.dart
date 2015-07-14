@@ -6,7 +6,7 @@ class Filters {
   static const _key = 'name';
   static const _key2 = 'color';
 
-  static final _log = new Logger('Filters');
+  static final _log = buildLogger(Filters);
 
   const Filters();
 

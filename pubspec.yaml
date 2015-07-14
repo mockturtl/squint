@@ -6,7 +6,7 @@ homepage: https://github.com/mockturtl/squint
 environment:
   sdk: '>=1.8.0 <2.0.0'
 dependencies:
-  pico_log: any
+  pico_log: '>= 0.2.0-beta.6'
   dotenv: any
   logging: any
 dev_dependencies:

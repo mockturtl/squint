@@ -1,10 +1,51 @@
 part of squint;
 
+/// Wraps the core [HttpClient] types.
+abstract class HttpPresenter {
+  // FIXME: https://code.google.com/p/dart/issues/detail?id=4596
+  static _noop() => {};
+
+  static final _log = buildLogger(HttpPresenter);
+
+  final Function _onComplete;
+
+  const HttpPresenter([this._onComplete = _noop]);
+
+  /// Supply custom headers with an [HttpClientRequest].
+  void head(HttpHeaders headers) {
+    headers.contentType = ContentType.JSON;
+    headers.persistentConnection = false;
+  }
+
+  /// Transform the response byte stream to a [String].
+  Future<String> decode(HttpClientResponse bytes) async {
+    _logHead(bytes);
+    return UTF8
+        .decodeStream(bytes)
+        .then(_logRes)
+        .catchError(_logErr)
+        .whenComplete(_onComplete);
+  }
+
+  void _logErr(e) => _log.severe(e);
+
+  void _logHead(HttpClientResponse res) {
+    _log.finer('-> ${res.statusCode} ${res.reasonPhrase}');
+    _log.finest(
+        '-> persistent? ${res.persistentConnection}, content-length: ${res.contentLength}, headers:\n${res.headers}');
+  }
+
+  String _logRes(String res) {
+    if (res.isNotEmpty) _log.finer('-> $res');
+    return res;
+  }
+}
+
 /// Wraps the core [HttpClient] types for GitHub's api.
 class GithubPresenter extends HttpPresenter {
   static const _accept = 'application/vnd.github.v3+json';
 
-  static final _log = new Logger('GithubPresenter');
+  static final _log = buildLogger(GithubPresenter);
 
   final String _userAgent; // https://developer.github.com/v3/#user-agent-required
   final String _token;

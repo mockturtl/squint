@@ -60,7 +60,7 @@ packages:
   logging:
     description: logging
     source: hosted
-    version: "0.9.3"
+    version: "0.11.1"
   matcher:
     description: matcher
     source: hosted
@@ -84,7 +84,7 @@ packages:
   pico_log:
     description: pico_log
     source: hosted
-    version: "0.1.0"
+    version: "0.2.0-beta.6"
   plugin:
     description: plugin
     source: hosted
@@ -132,7 +132,7 @@ packages:
   test:
     description: test
     source: hosted
-    version: "0.12.3+6"
+    version: "0.12.3+7"
   utf:
     description: utf
     source: hosted

@@ -2,56 +2,53 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 
-import 'package:dotenv/dotenv.dart' as dotenv;
 import 'package:logging/logging.dart';
-import 'package:pico_log/pico_log.dart';
-import 'package:squint/squint.dart' as squint;
+import 'package:pico_log/pico_log.dart' as pico_log;
+import 'package:squint/squint.dart';
 
 const configFile = '.squintrc.json';
 final path = Platform.script.resolve('..');
 final config = path.resolve(configFile).toFilePath();
-final f = new File(config);
+final file = new File(config);
 
 final log = new Logger('squint');
-const _f = const squint.Filters();
+const f = const Filters();
 
-get _env => dotenv.env;
-
-squint.Client _cli;
-List<Map> _currentLabels;
+Client cli;
+List<Map> currentLabels;
 
 Future main() async {
-  LogInit.setup(level: Level.FINE, timestamps: false);
-  _cli = squint.init();
+  pico_log.setup(level: Level.FINE, timestamps: false);
+  cli = init();
 
-  _checkConfig(f);
-  var config = JSON.decode(f.readAsStringSync());
+  _checkConfig(file);
+  var config = JSON.decode(file.readAsStringSync());
 
-  log.info('Squinting at repo ${_env['owner']}/${_env['repo']}...');
+  log.info('Squinting at repo ${env['owner']}/${env['repo']}...');
 
-  _currentLabels = await _cli.fetch();
+  currentLabels = await cli.fetch();
 
-  await _add(config['add']);
-  await _change(config['change']);
-  await _remove(config['remove']);
+  await add(config['add']);
+  await change(config['change']);
+  await remove(config['remove']);
 
-  log.info('...Done: ${_cli.browserUrl}');
+  log.info('...Done: ${cli.browserUrl}');
 }
 
-Future _add(List<Map> labels) async {
-  _f.blacklist(labels, _currentLabels);
-  await _cli.add(labels);
+Future add(List<Map> labels) async {
+  f.blacklist(labels, currentLabels);
+  await cli.add(labels);
 }
 
-Future _change(List<Map> labels) async {
-  _f.whitelist(labels, _currentLabels);
-  _f.blacklist2(labels, _currentLabels);
-  await _cli.change(labels);
+Future change(List<Map> labels) async {
+  f.whitelist(labels, currentLabels);
+  f.blacklist2(labels, currentLabels);
+  await cli.change(labels);
 }
 
-Future _remove(List<String> names) async {
-  _f.whitelist2(names, _currentLabels);
-  await _cli.remove(names);
+Future remove(List<String> names) async {
+  f.whitelist2(names, currentLabels);
+  await cli.remove(names);
 }
 
 void _checkConfig(File f) {

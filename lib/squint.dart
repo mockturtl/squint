@@ -1,31 +1,28 @@
-/// squint is a client for GitHub's issue labels api.
+/// squint is a client for GitHub's issue labels API.
 library squint;
 
 import 'dart:async';
-import 'dart:io';
 import 'dart:convert';
-import 'package:logging/logging.dart';
-import 'package:dotenv/dotenv.dart' as dotenv;
+import 'dart:io';
 
-part 'src/http_presenter.dart';
-part 'src/github_presenter.dart';
+import 'package:dotenv/dotenv.dart';
+import 'package:pico_log/pico_log.dart';
+
+export 'package:dotenv/dotenv.dart' show env;
+
 part 'src/client.dart';
 part 'src/filters.dart';
 part 'src/gateway.dart';
 part 'src/label.dart';
+part 'src/presenter.dart';
 part 'src/uri_builder.dart';
 
 const _requiredEnvVars = const ['owner', 'repo'];
 
 /// Load configuration.  Application code must call this once, early in `main()`.
 Client init() {
-  dotenv.load();
+  load();
   return new Client();
 }
 
-/// True if all required environment variables are present; false otherwise.
-/// Note [init] must be called first.
-bool get hasEnv => dotenv.isEveryDefined(_requiredEnvVars);
-
-/// The process environment.  See [dotenv].
-Map<String, String> get _env => dotenv.env;
+bool get hasEnv => isEveryDefined(_requiredEnvVars);
