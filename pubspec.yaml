@@ -10,7 +10,7 @@ dependencies:
   dotenv: any
   logging: any
   path: any
-  pico_log: '>= 0.2.0-beta.6'
+  pico_log: any
   yaml: any
 dev_dependencies:
   test: any
