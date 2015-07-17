@@ -2,8 +2,11 @@
 .pub/
 build/
 packages
+.packages
 docs
 dartdoc-viewer
 
 .env
-.squintrc.json
+.squint*
+!.squint.yml.example
+!.squint.json.example

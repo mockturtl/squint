@@ -1,20 +1,21 @@
-library client.test;
-
 import 'package:squint/squint.dart';
-import 'package:unittest/unittest.dart';
+import 'package:test/test.dart';
 
-void main() => run();
-
-void run() {
+main() {
   group('[Client]', () {
+    setUp(() {
+      cli = new Client.from('billyjean', 'kids');
+    });
+
     var subj = new ClientTest();
     test('it returns a URL for web browsers', subj.browserUrl);
   });
 }
 
+Client cli;
+
 class ClientTest {
-  void browserUrl() {
-    var cli = new Client.from('billyjean', 'kids');
+  browserUrl() {
     expect(cli.browserUrl, equals('https://github.com/billyjean/kids/labels'));
   }
 }

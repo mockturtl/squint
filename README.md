@@ -1,17 +1,11 @@
 squint
 ======
 
+Squint is a client for GitHub's [issue labels][gh-issue-labels] api (v3).
+
 [![Pub Version][pub_badge]][pub]
 [![Build Status][ci-badge]][ci]
 [![Tickets Ready][waffle_badge]][waffle]
-
-Squint is a client for GitHub's [issue labels][] api (v3).
-
-Groom the default tags to suit your team.
-
-Try it with [Stagehand][] in a new repo.
-
-[stagehand]: http://stagehand.pub/
 
 [ci-badge]: https://travis-ci.org/mockturtl/squint.svg?branch=master
 [ci]: https://travis-ci.org/mockturtl/squint
@@ -20,46 +14,78 @@ Try it with [Stagehand][] in a new repo.
 [waffle_badge]: https://badge.waffle.io/mockturtl/squint.svg?label=ready&title=Ready
 [waffle]: https://waffle.io/mockturtl/squint
 
+### about
+
+Groom the default tags to suit your team. Try it with [Stagehand][] in a new repo.
+
+Squint is idempotent. Requests are deduplicated against the repo's current labels.
+
+[stagehand]: http://stagehand.pub/
+[gh-issue-labels]: https://developer.github.com/v3/issues/labels/
+
 ###### setup
 
 Create [`.env`][.env] from the template file and fill in its values.
 
-usage
------
+[.env]: https://github.com/mockturtl/squint/blob/master/.env.example
 
-Create [`.squintrc.json`][squintrc] with the issue labels you wish to add, remove, or change.
+Create [`.squint.yml`][squintfile] (or `.json`) with the issue labels you wish 
+to add, remove, or change.
 
-```json
-{ "remove":
-  [ "help wanted"
-  , "invalid"
-  , "question"
-  , "enhancement"
-  ]
-, "add": 
-  [ { "name": "blocked", "color": "800000" }
-  , { "name": "ready", "color": "01ff70" }
-  , { "name": "android", "color": "a4c639" }
-  , { "name": "jigglypuff", "color": "fad0de" }
-  ]
-, "change":
-  [ { "name": "bug", "color": "d32f2f" }
-  , { "name": "wontfix", "color": "000000" }
-  , { "name": "duplicate", "color": "333333" }
-  ]
-}
+```yaml
+remove:
+  - help wanted
+  - invalid
+  - question
+  - enhancement
+
+add: 
+  - name: blocked
+    color: '#800000'
+  - name: ready
+    color: '#01ff70'
+  - name: android
+    color: '#a4c639'
+  - name: jigglypuff
+    color: '#fad0de'
+
+change:
+  - name: bug
+    color: '#d32f2f'
+  - name: wontfix
+    color: '#000000'
+  - name: duplicate
+    color: '#433333'
 ```
 
-Run squint: 
+[squintfile]: https://github.com/mockturtl/squint/blob/master/.squint.yml.example
+
+### cli
+ 
+Grab the latest:
 
 ```sh
-$ dart bin/main.dart
+$ pub global activate squint
 ```
 
-- Squint is idempotent.  Requests are deduplicated against the repo's current labels.
-- Squint will be available as a `pub global|run` command once pub [supports][pub-async] `async`.
+Pub will install the `squint` executable. ([more][pub-global])
 
-[issue labels]: https://developer.github.com/v3/issues/labels/
-[pub-async]: http://stackoverflow.com/a/27753955
-[squintrc]: https://github.com/mockturtl/squint/blob/master/.squintrc.json.example 
-[.env]: https://github.com/mockturtl/squint/blob/master/.env.example
+Run:
+
+```sh
+$ pub global run squint:squint -h
+$ squint -h # needs ~/.pub-cache/bin in your PATH
+```
+
+[pub-global]: https://www.dartlang.org/tools/pub/cmd/pub-global.html#running-a-script
+
+
+#### discussion
+
+Use the [issue tracker][tracker] for bug reports and feature requests.
+
+Pull requests gleefully considered.
+
+[tracker]: https://github.com/mockturtl/squint/issues
+
+###### license: [MIT](LICENSE)

@@ -3,57 +3,26 @@ part of squint;
 /// Validate input before sending.
 /// Don't try to add labels that already exist, or update/remove labels that do not exist.
 class Filters {
-  static const _key = 'name';
-  static const _key2 = 'color';
+  static final _log = buildLogger(Filters);
 
-  static final _log = new Logger('Filters');
+  final List<Map> _items;
 
-  const Filters();
+  const Filters(this._items);
 
-  /// Mutates [input], removing elements that do not match any item in the [whitelist].
-  void whitelist(List<Map<String, dynamic>> input,
-      Iterable<Map<String, dynamic>> whitelist) {
-    input.removeWhere((map) {
-      var val = map[_key];
-      var exists = whitelist.any((l) => l[_key] == val);
-      if (!exists) _log
-          .warning('whitelist: label "$val" does not exist; skipping');
-      return !exists;
-    });
-  }
+  /// Returns those elements of [input] whose name occurs in [_currentLabels].
+  Iterable<Map> includeByName(Iterable<Map> src) =>
+      src.where((el) => _items.any((i) => el['name'] == i['name']));
 
   /// Mutates [input], removing elements that do not match any item in the [whitelist].
-  void whitelist2(
-      List<String> input, Iterable<Map<String, dynamic>> whitelist) {
-    input.removeWhere((str) {
-      var exists = whitelist.any((l) => l[_key] == str);
-      if (!exists) _log
-          .warning('whitelist2: label "$str" does not exist; skipping');
-      return !exists;
-    });
-  }
+  Iterable<String> include(Iterable<String> src) =>
+      src.where((str) => _items.any((i) => str == i['name']));
 
-  /// Mutates [input], removing elements that match any item in the [blacklist].
-  void blacklist(List<Map<String, dynamic>> input,
-      Iterable<Map<String, dynamic>> blacklist) {
-    input.removeWhere((map) {
-      var val = map[_key];
-      var exists = blacklist.any((l) => l[_key] == val);
-      if (exists) _log.warning('blacklist: label "$val" exists; skipping');
-      return exists;
-    });
-  }
+  /// Returns those elements of [input] whose name does not occur in [_currentLabels].
+  Iterable<Map> excludeByName(Iterable<Map> src) =>
+      src.where((el) => !_items.any((i) => i['name'] == el['name']));
 
-  /// Mutates [input], removing elements that match any item in the [blacklist].
-  void blacklist2(List<Map<String, String>> input,
-      Iterable<Map<String, String>> blacklist) {
-    input.removeWhere((map) {
-      var val = map[_key];
-      var val2 = map[_key2];
-      var exists = blacklist.any((l) => l[_key] == val && l[_key2] == val2);
-      if (exists) _log
-          .warning('blacklist2: label "$val, $val2" exists; skipping');
-      return exists;
-    });
-  }
+  /// Returns those elements of [input] whose name and color do not occur in [_currentLabels].
+  Iterable<Map> excludeByNameAndColor(Iterable<Map> src) => src.where(
+      (el) => !_items
+          .any((i) => i['name'] == el['name'] && i['color'] == el['color']));
 }

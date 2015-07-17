@@ -1,4 +1,8 @@
-part of api_request.test;
+import 'dart:io';
+
+import 'package:mockito/mockito.dart';
+
+class HttpClientRequestMock extends Mock implements HttpClientRequest {}
 
 class HttpHeadersMock extends Mock implements HttpHeaders {
   final _map = {};
@@ -15,3 +19,11 @@ class HttpHeadersMock extends Mock implements HttpHeaders {
   String get authorization => _map[HttpHeaders.AUTHORIZATION];
   String get userAgent => _map[HttpHeaders.USER_AGENT];
 }
+
+HttpClientRequest buildStubRequest() {
+  var out = new HttpClientRequestMock();
+  when(out.add(any));
+  return out;
+}
+
+HttpHeaders buildStubHeaders() => new HttpHeadersMock();

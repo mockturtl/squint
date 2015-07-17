@@ -1,41 +1,37 @@
 import 'dart:math';
 import 'dart:io';
 
-import 'package:squint/squint.dart' as squint;
-import 'package:pico_log/pico_log.dart';
 import 'package:logging/logging.dart';
+import 'package:pico_log/pico_log.dart' as pico_log;
+import 'package:squint/squint.dart' as squint;
 
 final log = new Logger('squint.example');
 
-squint.Client _client;
+squint.Client client;
 
 /// The environment must contain certain variables. See README.
-void main() {
-  LogInit.setup(level: Level.FINE);
-  _client = squint.init();
+main() async {
+  pico_log.setup(level: Level.FINE);
+  client = squint.init();
   _checkEnv();
-  run();
-}
 
-void run() async {
-  var labels = await _client.fetch();
+  var labels = await client.fetch();
   log.info('run: got ${labels.length} labels');
   labels.forEach((ob) => log.fine('\t-> $ob'));
 
-  var _gateway = _client.gateway;
-  log.fine('GET-> ${await _gateway.get('bug')}');
-  log.fine('PATCH-> ${await _gateway.set('bug', _randomHexRgb)}');
+  var g = client.gateway;
+  log.info('GET-> ${await g.get('bug')}');
+  log.info('PATCH-> ${await g.set('bug', _randomHexRgb)}');
+  log.info('POST-> ${await g.create('tmp', _randomHexRgb)}');
+  log.info('DELETE-> ${(await g.delete('tmp') as String).isEmpty}\n');
 
-  log.fine('POST-> ${await _gateway.create('tmp', _randomHexRgb)}');
-  log.fine('DELETE-> ${(await _gateway.delete('tmp') as String).isEmpty}\n');
-
-  log.info('Have a look!  ${_client.browserUrl}');
+  log.fine('Have a look!  ${client.browserUrl}');
 }
 
 void _checkEnv() {
   if (!squint.hasEnv) {
     log.severe(
-        'Cannot get repository url from the environment; aborting.  See README.');
+        'Cannot get repository url from the environment; aborting. See README.');
     exit(2);
   }
 }
