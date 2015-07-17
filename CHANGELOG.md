@@ -17,7 +17,7 @@ HEAD
 - [feat] support YAML config files
 - [feat] take command-line arguments [#6][], [#7][]
 - [feat] allow leading `#`, `0x` for color hex
-- [deps] 
+- [deps] logging -> 0.11
 
 0.1.0
 -----
