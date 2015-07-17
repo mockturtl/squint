@@ -5,6 +5,7 @@ Squint is a client for GitHub's [issue labels][gh-issue-labels] api (v3).
 
 [![Pub Version][pub_badge]][pub]
 [![Build Status][ci-badge]][ci]
+[![Documentation][dartdocs-badge]][dartdocs]
 [![Tickets Ready][waffle_badge]][waffle]
 
 [ci-badge]: https://travis-ci.org/mockturtl/squint.svg?branch=master
@@ -13,6 +14,8 @@ Squint is a client for GitHub's [issue labels][gh-issue-labels] api (v3).
 [pub]: https://pub.dartlang.org/packages/squint
 [waffle_badge]: https://badge.waffle.io/mockturtl/squint.svg?label=ready&title=Ready
 [waffle]: https://waffle.io/mockturtl/squint
+[dartdocs-badge]: https://img.shields.io/badge/dartdocs-reference-blue.svg
+[dartdocs]: http://www.dartdocs.org/documentation/squint/latest
 
 ### about
 
