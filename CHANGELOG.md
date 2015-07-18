@@ -18,6 +18,7 @@ HEAD
 - [feat] take command-line arguments [#6][], [#7][]
 - [feat] allow leading `#`, `0x` for color hex
 - [deps] logging -> 0.11
+- [deps] pico_log -> 0.3
 
 0.1.0
 -----
