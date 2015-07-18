@@ -15,14 +15,16 @@ part 'src/label.dart';
 part 'src/presenter.dart';
 part 'src/uri_builder.dart';
 
-const _requiredEnvVars = const ['owner', 'repo'];
+const _requiredEnvVars = const ['owner', 'repo', 'OAUTH_TOKEN'];
 
-/// Load configuration.  Application code must call this once, early in `main()`.
+/// Loads configuration.  Application code must call this once, early in `main()`.
 Client init() {
   dotenv.load();
   return new Client();
 }
 
+/// Verifies the presence of required environment variables.
 bool get hasEnv => dotenv.isEveryDefined(_requiredEnvVars);
 
+/// Proxies to the [dotenv] environment.
 Map<String, String> get env => dotenv.env;
