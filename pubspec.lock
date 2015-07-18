@@ -82,9 +82,11 @@ packages:
     source: hosted
     version: "1.3.6"
   pico_log:
-    description: pico_log
-    source: hosted
-    version: "0.2.1"
+    description:
+      path: "/home/tom/proj/dart/pico_log"
+      relative: false
+    source: path
+    version: "0.3.0"
   plugin:
     description: plugin
     source: hosted

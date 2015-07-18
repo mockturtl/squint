@@ -5,10 +5,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:dotenv/dotenv.dart';
+import 'package:dotenv/dotenv.dart' as dotenv;
 import 'package:pico_log/pico_log.dart';
-
-export 'package:dotenv/dotenv.dart' show env;
 
 part 'src/client.dart';
 part 'src/filters.dart';
@@ -21,8 +19,10 @@ const _requiredEnvVars = const ['owner', 'repo'];
 
 /// Load configuration.  Application code must call this once, early in `main()`.
 Client init() {
-  load();
+  dotenv.load();
   return new Client();
 }
 
-bool get hasEnv => isEveryDefined(_requiredEnvVars);
+bool get hasEnv => dotenv.isEveryDefined(_requiredEnvVars);
+
+Map<String, String> get env => dotenv.env;
