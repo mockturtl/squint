@@ -10,8 +10,7 @@ dependencies:
   dotenv: any
   logging: any
   path: any
-  pico_log:
-    path: /home/tom/proj/dart/pico_log
+  pico_log: any
   yaml: any
 dev_dependencies:
   test: any
