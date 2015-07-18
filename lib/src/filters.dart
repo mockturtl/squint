@@ -8,6 +8,7 @@ class Filters {
   final List<Map> _items;
 
   const Filters(this._items);
+  const Filters.clean() : this(const []);
 
   /// Returns those elements of [input] whose name occurs in [_currentLabels].
   Iterable<Map> includeByName(Iterable<Map> src) =>

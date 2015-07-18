@@ -76,8 +76,7 @@ Pub will install the `squint` executable. ([more][pub-global])
 Run:
 
 ```sh
-$ pub global run squint:squint -h
-$ squint -h # needs ~/.pub-cache/bin in your PATH
+$ squint --help  # needs ~/.pub-cache/bin in your PATH
 ```
 
 [pub-global]: https://www.dartlang.org/tools/pub/cmd/pub-global.html#running-a-script

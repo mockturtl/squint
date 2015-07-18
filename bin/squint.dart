@@ -1,3 +1,5 @@
+library squint.bin;
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -8,6 +10,12 @@ import 'package:path/path.dart' as path;
 import 'package:pico_log/pico_log.dart' as pico_log;
 import 'package:squint/squint.dart';
 import 'package:yaml/yaml.dart' as yaml;
+
+part 'src/errors.dart';
+part 'src/validation.dart';
+
+const validateApi = const DataValidation();
+const validateConfig = const ConfigFileValidation();
 
 final log = new Logger('squint');
 final _args = _buildArgParser();
@@ -24,30 +32,40 @@ main(List<String> args) async {
   cli = init();
 
   var file = _verify(opts['file']);
-  var config = parse(file);
+  var config = _parse(file);
+  validateConfig(config);
+
   log.info('Squinting at repo ${env['owner']}/${env['repo']}...');
 
   var currentLabels = await cli.fetch();
+  validateApi(currentLabels);
   filt = new Filters(currentLabels);
 
   await add(config['add']);
+  await change(config['change']);
   await remove(config['remove']);
 
   log.info('Done. ${cli.browserUrl}');
 }
 
 Future add(List<Map> labels) async {
+  if (labels == null || labels.isEmpty) return;
+  validateApi(labels);
   var newLabels = filt.excludeByName(labels);
   await cli.add(newLabels);
 }
 
 Future change(List<Map> labels) async {
+  if (labels == null || labels.isEmpty) return;
+  validateApi(labels);
   var existingLabels = filt.includeByName(labels);
   var noRepeats = filt.excludeByNameAndColor(existingLabels);
   await cli.change(noRepeats);
 }
 
 Future remove(List<String> names) async {
+  if (names == null || names.isEmpty) return;
+  validateApi.nonnull(names);
   var included = filt.include(names);
   await cli.remove(included);
 }
@@ -58,10 +76,10 @@ File _verify(String filename) {
   if (f.existsSync()) return f;
 
   log.severe('Load failed: file not found: $filename');
-  exit(2);
+  exit(Errors.CFG_FILE_NOT_FOUND);
 }
 
-Map parse(File f) {
+Map _parse(File f) {
   var ext = path.extension(f.path);
   var bytes = f.readAsStringSync();
   switch (ext) {
@@ -72,7 +90,7 @@ Map parse(File f) {
       return yaml.loadYaml(bytes);
     default:
       log.severe('Unrecognized file type: ${f.path}.');
-      exit(3);
+      exit(Errors.CFG_UNKNOWN_FILE_TYPE);
   }
 }
 
@@ -84,7 +102,7 @@ ArgParser _buildArgParser() => pico_log.buildArgParser()
       help: 'Configuration file to read. Supported file types: .json, .yml, .yaml');
 
 void _usage() {
-  _p('Create a new file and gitignore it.');
+  _p('Add, remove or change a GitHub repo\'s issue labels.');
   _p('Usage: pub global run squint [options]\n${_args.usage}');
 }
 
