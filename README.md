@@ -26,7 +26,7 @@ Squint is idempotent. Requests are deduplicated against the repo's current label
 [stagehand]: http://stagehand.pub/
 [gh-issue-labels]: https://developer.github.com/v3/issues/labels/
 
-###### setup
+### usage
 
 Create [`.env`][.env] from the template file and fill in its values.
 
@@ -61,6 +61,10 @@ change:
     color: '#433333'
 ```
 
+See [documentation][usage] and [examples][].
+
+[usage]: http://www.dartdocs.org/documentation/squint/latest/index.html#squint/squint
+[examples]: https://github.com/mockturtl/squint/tree/master/example
 [squintfile]: https://github.com/mockturtl/squint/blob/master/.squint.yml.example
 
 ### cli
