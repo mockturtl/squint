@@ -9,8 +9,8 @@ Release notes are available on [github][notes].
 [pub-semver-readme]: https://pub.dartlang.org/packages/pub_semver
 [notes]: https://github.com/mockturtl/squint/releases
 
-HEAD
-----
+0.2.0
+-----
 
 - [feat] async, parallel requests
 - [feat] add `pub global` command [#4][]
