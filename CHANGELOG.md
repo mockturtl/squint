@@ -9,6 +9,10 @@ Release notes are available on [github][notes].
 [pub-semver-readme]: https://pub.dartlang.org/packages/pub_semver
 [notes]: https://github.com/mockturtl/squint/releases
 
+#### 0.2.0+1
+
+- [docs] tweak README
+
 0.2.0
 -----
 
