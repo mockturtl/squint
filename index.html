@@ -1,81 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset='utf-8'>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
     <title>Squint by mockturtl</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
   </head>
-
   <body>
-
-    <header>
-      <div class="container">
+    <div class="wrapper">
+      <header>
         <h1>Squint</h1>
-        <h2>Get your crayon.</h2>
+        <p>Issue labels for hackers.</p>
 
-        <section id="downloads">
-          <a href="https://github.com/mockturtl/squint/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/mockturtl/squint/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/mockturtl/squint" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
+        <p class="view"><a href="https://github.com/mockturtl/squint">View the Project on GitHub <small>mockturtl/squint</small></a></p>
 
-    <div class="container">
-      <section id="main_content">
+
+        <ul>
+          <li><a href="https://github.com/mockturtl/squint/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/mockturtl/squint/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/mockturtl/squint">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
         <h1>
 <a id="squint" class="anchor" href="#squint" aria-hidden="true"><span class="octicon octicon-link"></span></a>squint</h1>
 
 <p>Squint is a client for GitHub's <a href="https://developer.github.com/v3/issues/labels/">issue labels</a> api (v3).</p>
 
-<p>Groom the default tags to suit your team.</p>
+<p><a href="https://pub.dartlang.org/packages/squint"><img src="https://img.shields.io/pub/v/squint.svg" alt="Pub Version"></a>
+<a href="https://travis-ci.org/mockturtl/squint"><img src="https://travis-ci.org/mockturtl/squint.svg?branch=master" alt="Build Status"></a>
+<a href="http://www.dartdocs.org/documentation/squint/latest"><img src="https://img.shields.io/badge/dartdocs-reference-blue.svg" alt="Documentation"></a>
+<a href="https://waffle.io/mockturtl/squint"><img src="https://badge.waffle.io/mockturtl/squint.svg?label=ready&amp;title=Ready" alt="Tickets Ready"></a></p>
 
-<p>Try it with <a href="http://stagehand.pub/">Stagehand</a> in a new repo.</p>
+<h3>
+<a id="about" class="anchor" href="#about" aria-hidden="true"><span class="octicon octicon-link"></span></a>about</h3>
 
-<p><a href="http://waffle.io/mockturtl/squint"><img src="https://badge.waffle.io/mockturtl/squint.png?label=ready&amp;title=Ready" alt="Stories in Ready"></a></p>
+<p>Groom the default tags to suit your team. Try it with <a href="http://stagehand.pub/">Stagehand</a> in a new repo.</p>
+
+<p>Squint is idempotent. Requests are deduplicated against the repo's current labels.</p>
 
 <h6>
 <a id="setup" class="anchor" href="#setup" aria-hidden="true"><span class="octicon octicon-link"></span></a>setup</h6>
 
 <p>Create <a href="https://github.com/mockturtl/squint/blob/master/.env.example"><code>.env</code></a> from the template file and fill in its values.</p>
 
-<h2>
-<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>usage</h2>
+<p>Create <a href="https://github.com/mockturtl/squint/blob/master/.squint.yml.example"><code>.squint.yml</code></a> (or <code>.json</code>) with the issue labels you wish 
+to add, remove, or change.</p>
 
-<p>Create <a href="https://github.com/mockturtl/squint/blob/master/.squintrc.json.example"><code>.squintrc.json</code></a> with the issue labels you wish to add, remove, or change.</p>
+<div class="highlight highlight-yaml"><pre><span class="pl-s"><span class="pl-ent">remove:</span></span>
+  <span class="pl-s">- <span class="pl-s">help wanted</span></span>
+  <span class="pl-s">- <span class="pl-s">invalid</span></span>
+  <span class="pl-s">- <span class="pl-s">question</span></span>
+  <span class="pl-s">- <span class="pl-s">enhancement</span></span>
 
-<div class="highlight highlight-json"><pre>{ <span class="pl-s1"><span class="pl-pds">"</span>remove<span class="pl-pds">"</span></span>:
-  [ <span class="pl-s1"><span class="pl-pds">"</span>help wanted<span class="pl-pds">"</span></span>
-  , <span class="pl-s1"><span class="pl-pds">"</span>invalid<span class="pl-pds">"</span></span>
-  , <span class="pl-s1"><span class="pl-pds">"</span>question<span class="pl-pds">"</span></span>
-  , <span class="pl-s1"><span class="pl-pds">"</span>enhancement<span class="pl-pds">"</span></span>
-  ]
-, <span class="pl-s1"><span class="pl-pds">"</span>add<span class="pl-pds">"</span></span>: 
-  [ { <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>blocked<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>800000<span class="pl-pds">"</span></span> }
-  , { <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>ready<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>01ff70<span class="pl-pds">"</span></span> }
-  , { <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>android<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>a4c639<span class="pl-pds">"</span></span> }
-  , { <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>jigglypuff<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>fad0de<span class="pl-pds">"</span></span> }
-  ]
-, <span class="pl-s1"><span class="pl-pds">"</span>change<span class="pl-pds">"</span></span>:
-  [ { <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>bug<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>d32f2f<span class="pl-pds">"</span></span> }
-  , { <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>wontfix<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>000000<span class="pl-pds">"</span></span> }
-  , { <span class="pl-s1"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>duplicate<span class="pl-pds">"</span></span>, <span class="pl-s1"><span class="pl-pds">"</span>color<span class="pl-pds">"</span></span>: <span class="pl-s1"><span class="pl-pds">"</span>333333<span class="pl-pds">"</span></span> }
-  ]
-}</pre></div>
+<span class="pl-s"><span class="pl-ent">add:</span> </span>
+  <span class="pl-s">- <span class="pl-ent">name:</span> <span class="pl-s">blocked</span></span>
+    <span class="pl-s"><span class="pl-ent">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#800000<span class="pl-pds">'</span></span></span>
+  <span class="pl-s">- <span class="pl-ent">name:</span> <span class="pl-s">ready</span></span>
+    <span class="pl-s"><span class="pl-ent">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#01ff70<span class="pl-pds">'</span></span></span>
+  <span class="pl-s">- <span class="pl-ent">name:</span> <span class="pl-s">android</span></span>
+    <span class="pl-s"><span class="pl-ent">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#a4c639<span class="pl-pds">'</span></span></span>
+  <span class="pl-s">- <span class="pl-ent">name:</span> <span class="pl-s">jigglypuff</span></span>
+    <span class="pl-s"><span class="pl-ent">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#fad0de<span class="pl-pds">'</span></span></span>
 
-<p>Run squint: </p>
+<span class="pl-s"><span class="pl-ent">change:</span></span>
+  <span class="pl-s">- <span class="pl-ent">name:</span> <span class="pl-s">bug</span></span>
+    <span class="pl-s"><span class="pl-ent">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#d32f2f<span class="pl-pds">'</span></span></span>
+  <span class="pl-s">- <span class="pl-ent">name:</span> <span class="pl-s">wontfix</span></span>
+    <span class="pl-s"><span class="pl-ent">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#000000<span class="pl-pds">'</span></span></span>
+  <span class="pl-s">- <span class="pl-ent">name:</span> <span class="pl-s">duplicate</span></span>
+    <span class="pl-s"><span class="pl-ent">color:</span> <span class="pl-s"><span class="pl-pds">'</span>#433333<span class="pl-pds">'</span></span></span></pre></div>
 
-<div class="highlight highlight-sh"><pre>$ dart bin/main.dart</pre></div>
+<h3>
+<a id="cli" class="anchor" href="#cli" aria-hidden="true"><span class="octicon octicon-link"></span></a>cli</h3>
 
-<p>Squint will be available as a <code>pub global|run</code> command once pub <a href="http://stackoverflow.com/a/27753955">supports</a> <code>async</code>.</p>
+<p>Grab the latest:</p>
+
+<div class="highlight highlight-sh"><pre>$ pub global activate squint</pre></div>
+
+<p>Pub will install the <code>squint</code> executable. (<a href="https://www.dartlang.org/tools/pub/cmd/pub-global.html#running-a-script">more</a>)</p>
+
+<p>Run:</p>
+
+<div class="highlight highlight-sh"><pre>$ squint --help  <span class="pl-c"># needs ~/.pub-cache/bin in your PATH</span></pre></div>
+
+<h4>
+<a id="discussion" class="anchor" href="#discussion" aria-hidden="true"><span class="octicon octicon-link"></span></a>discussion</h4>
+
+<p>Use the <a href="https://github.com/mockturtl/squint/issues">issue tracker</a> for bug reports and feature requests.</p>
+
+<p>Pull requests gleefully considered.</p>
+
+<h6>
+<a id="license-mit" class="anchor" href="#license-mit" aria-hidden="true"><span class="octicon octicon-link"></span></a>license: <a href="LICENSE">MIT</a>
+</h6>
       </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/mockturtl">mockturtl</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
     </div>
-
+    <script src="javascripts/scale.fix.js"></script>
     
   </body>
 </html>
