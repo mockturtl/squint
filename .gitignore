@@ -3,8 +3,7 @@
 build/
 packages
 .packages
-docs
-dartdoc-viewer
+doc
 
 .env
 .squint*
